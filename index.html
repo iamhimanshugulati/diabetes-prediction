@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+  <title>Diabetes Prediction</title>
+</head>
+
+<body style="background-color: #f1f2f3">
+  <header class="text-gray-400 body-font">
+    <div class="
+          container
+          mx-auto
+          flex flex-wrap
+          p-5
+          flex-col
+          md:flex-row
+          items-center
+        ">
+      <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+        <a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database" target="_blank" rel="noopener noreferrer"
+          class="mr-5 hover:text-gray-900 text-pink-400 font-bold">Dataset Source</a>
+        <a href="https://www.dropbox.com/s/e91kvzd2299dw29/diabetes.csv?dl=0" target="_blank" rel="noopener noreferrer"
+          class="mr-5 hover:text-gray-900 text-pink-400 font-bold">View Dataset</a>
+      </nav>
+      <a href="/" target="_blank" rel="noopener noreferrer" class="
+            flex
+            order-first
+            lg:order-none lg:w-1/5
+            title-font
+            font-medium
+            items-center
+            text-gray-900
+            lg:items-center lg:justify-center
+            mb-4
+            md:mb-0
+          ">
+        <img src="favicon/logo.svg" alt="logo" />
+        <span class="ml-3 text-xl font-extrabold">Diabetes Prediction</span>
+      </a>
+      <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0 text-black">
+        <a href="https://colab.research.google.com/drive/1L3U2B74DWwUcM1RE-gX5DWDfI8K299qc?usp=sharing" target="_blank"
+          rel="noopener noreferrer">
+          <button class="
+                inline-flex
+                items-center
+                bg-pink-500
+                border-0
+                py-1
+                px-3
+                focus:outline-none
+                hover:bg-pink-200
+                rounded
+                text-base
+                mt-4
+                md:mt-0
+                font-bold
+              ">
+            Google Colab Link
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <div>
+    <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
+      class="transition duration-300 ease-in-out delay-150">
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc644"></stop>
+          <stop offset="95%" stop-color="#fff20044"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,80 0,80 C 22.978285614338496,88.48911207261506 45.95657122867699,96.97822414523013 75,89 C 104.04342877132301,81.02177585476987 139.15200069963055,56.576215491694555 173,53 C 206.84799930036945,49.423784508305445 239.43542597280077,66.71691388799164 271,75 C 302.5645740271992,83.28308611200836 333.1062954091665,82.55612895633888 358,88 C 382.8937045908335,93.44387104366112 402.1393923905334,105.05857028665288 436,98 C 469.8606076094666,90.94142971334712 518.3361350287001,65.20958989704965 550,65 C 581.6638649712999,64.79041010295035 596.5160674946659,90.10307012514849 619,92 C 641.4839325053341,93.89692987485151 671.5995949926362,72.37812960235641 707,67 C 742.4004050073638,61.6218703976436 783.0855525347891,72.3844114654259 817,73 C 850.9144474652109,73.6155885345741 878.058194868207,64.08422453594002 909,66 C 939.941805131793,67.91577546405998 974.6816679923829,81.278690390814 1002,81 C 1029.318332007617,80.721309609186 1049.215133162262,66.80101390080398 1077,67 C 1104.784866837738,67.19898609919602 1140.457799358569,81.51725400597007 1175,80 C 1209.542200641431,78.48274599402993 1242.9536694034623,61.12997007531575 1271,60 C 1299.0463305965377,58.87002992468425 1321.727523027582,73.96286569276693 1349,80 C 1376.272476972418,86.03713430723307 1408.136238486209,83.01856715361654 1440,80 C 1440,80 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150">
+      </path>
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc666"></stop>
+          <stop offset="95%" stop-color="#fff20066"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,160 0,160 C 28.86294527486387,148.2409772731204 57.72589054972774,136.4819545462408 88,131 C 118.27410945027226,125.51804545375923 149.9593830759529,126.3131590881573 183,132 C 216.0406169240471,137.6868409118427 250.4365771464606,148.2654091011301 277,161 C 303.5634228535394,173.7345908988699 322.29430833820476,188.6252045073224 347,188 C 371.70569166179524,187.3747954926776 402.3861895007202,171.2337728695803 434,172 C 465.6138104992798,172.7662271304197 498.1609336589145,190.4397040143564 530,184 C 561.8390663410855,177.5602959856436 592.9700758636219,147.0074110729941 628,137 C 663.0299241363781,126.9925889270059 701.9587628865979,137.53065169366718 735,144 C 768.0412371134021,150.46934830633282 795.1948725899865,152.8699821523373 822,163 C 848.8051274100135,173.1300178476627 875.2617467534567,190.98941969698382 904,185 C 932.7382532465433,179.01058030301618 963.7581403961871,149.1723390597275 990,135 C 1016.2418596038129,120.82766094027248 1037.705691661795,122.32122406410616 1066,132 C 1094.294308338205,141.67877593589384 1129.4190929566323,159.54276468384785 1161,169 C 1192.5809070433677,178.45723531615215 1220.6179365116757,179.5077172005025 1251,182 C 1281.3820634883243,184.4922827994975 1314.109160996664,188.42636651414216 1346,185 C 1377.890839003336,181.57363348585784 1408.9454195016679,170.78681674292892 1440,160 C 1440,160 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150">
+      </path>
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc688"></stop>
+          <stop offset="95%" stop-color="#fff20088"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,240 0,240 C 26.77191891744242,235.26989287293327 53.54383783488484,230.53978574586654 80,231 C 106.45616216511516,231.46021425413346 132.59656757790304,237.11074988946717 164,238 C 195.40343242209696,238.88925011053283 232.0698918535029,235.01721469626492 265,228 C 297.9301081464971,220.98278530373508 327.1238650080854,210.82039132547317 357,214 C 386.8761349919146,217.17960867452683 417.4346481141556,233.7012200018424 453,246 C 488.5653518858444,258.2987799981576 529.1375425352924,266.3747286671572 555,269 C 580.8624574647076,271.6252713328428 592.0151817446747,268.79986532952876 615,259 C 637.9848182553253,249.20013467047121 672.801730486009,232.42581001472757 705,236 C 737.198269513991,239.57418998527243 766.7778963112899,263.496894611561 799,264 C 831.2221036887101,264.503105388439 866.0866842688313,241.5866115390284 898,242 C 929.9133157311687,242.4133884609716 958.8753666133849,266.15665923232547 987,269 C 1015.1246333866151,271.84334076767453 1042.4118492776288,253.78675153166972 1070,252 C 1097.5881507223712,250.21324846833028 1125.4772362760996,264.69633464099576 1158,260 C 1190.5227637239004,255.30366535900424 1227.6792056179731,231.42790990434725 1259,230 C 1290.3207943820269,228.57209009565275 1315.8059412520076,249.5920257416151 1345,255 C 1374.1940587479924,260.4079742583849 1407.097029373996,250.20398712919246 1440,240 C 1440,240 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150">
+      </path>
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc6ff"></stop>
+          <stop offset="95%" stop-color="#fff200ff"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,320 0,320 C 34.28206318895199,325.1647633272032 68.56412637790397,330.3295266544064 94,330 C 119.43587362209603,329.6704733455936 136.0255576773361,323.84665670957776 167,318 C 197.9744423226639,312.15334329042224 243.3336429127517,306.2838465072828 279,312 C 314.6663570872483,317.7161534927172 340.6398706716571,335.0179572612911 364,328 C 387.3601293283429,320.9820427387089 408.1068744006199,289.64432444755283 440,290 C 471.8931255993801,290.35567555244717 514.9326317258632,322.40474494849747 550,335 C 585.0673682741368,347.59525505150253 612.1625986959274,340.7366957584574 638,340 C 663.8374013040726,339.2633042415426 688.416973490427,344.64847201767304 721,339 C 753.583026509573,333.35152798232696 794.1695073423642,316.6694161708504 824,311 C 853.8304926576358,305.3305838291496 872.9049971401163,310.67386329892526 896,320 C 919.0950028598837,329.32613670107474 946.2105040971708,342.63513063344857 982,337 C 1017.7894959028292,331.36486936655143 1062.2529864712,306.78561416728036 1096,309 C 1129.7470135288,311.21438583271964 1152.777550018029,340.22241269743 1178,342 C 1203.222449981971,343.77758730257 1230.6368134566844,318.32473504299963 1256,305 C 1281.3631865433156,291.67526495700037 1304.675196155233,290.4786471305715 1335,295 C 1365.324803844767,299.5213528694285 1402.6624019223837,309.76067643471424 1440,320 C 1440,320 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150">
+      </path>
+    </svg>
+  </div>
+
+  <section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">About The Datset:
+          <br class="hidden lg:inline-block">PIMA Diabetes Dataset
+        </h1>
+        <p class="mb-8 leading-relaxed">The datasets consists of several medical predictor variables and one target
+          variable, Outcome. Predictor variables includes the number of pregnancies the patient has had, their BMI,
+          insulin level, age, and so on.</p>
+      </div>
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+        <img class="object-cover object-center rounded" alt="hero" src="/image/diabetes.png">
+      </div>
+    </div>
+  </section>
+
+  <section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <img class="object-cover object-center rounded" alt="hero" src="/image/google_colab.png">
+      </div>
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Practical Implementation:
+          <br class="hidden lg:inline-block">Google Colaboratory
+        </h1>
+        <p class="mb-8 leading-relaxed">Firstly importing dependencies to do some Data Analysis and Google Colaboratory
+          is bases on unix based system and it has pre installed libraries, we don't need to be installed any libraries.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+      <div class="flex flex-wrap w-full">
+        <div class="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-600 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 1</h2>
+              <p class="leading-relaxed">Importing Required Libraries.</p>
+            </div>
+          </div>
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-600 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 2</h2>
+              <p class="leading-relaxed">Loading Dataset</p>
+            </div>
+          </div>
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-600 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-5 h-5" viewBox="0 0 24 24">
+                <circle cx="12" cy="5" r="3"></circle>
+                <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 3</h2>
+              <p class="leading-relaxed">Data Preprocessing & Visualization</p>
+            </div>
+          </div>
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-600 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">STEP 4</h2>
+              <p class="leading-relaxed">Implement model and tweak according to accuracy.</p>
+            </div>
+          </div>
+          <div class="flex relative">
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-600 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                <path d="M22 4L12 14.01l-3-3"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">FINISH</h2>
+              <p class="leading-relaxed">Make Predictive system</p>
+            </div>
+          </div>
+        </div>
+        <img class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src="/image/steps.png"
+          alt="step">
+      </div>
+    </div>
+  </section>
+
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+      <div class="flex w-full mb-20 flex-wrap">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 lg:w-1/3 lg:mb-0 mb-4">Project Code Glimpse
+        </h1>
+      </div>
+      <div class="flex flex-wrap md:-m-2 -m-1">
+        <div class="flex flex-wrap w-1/2">
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block" src="/image/1.png">
+          </div>
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block" src="/image/2.png">
+          </div>
+          <div class="md:p-2 p-1 w-full">
+            <img alt="gallery" class="w-full h-full object-cover object-center block" src="/image/3.png">
+          </div>
+        </div>
+        <div class="flex flex-wrap w-1/2">
+          <div class="md:p-2 p-1 w-full">
+            <img alt="gallery" class="w-full h-full object-cover object-center block" src="/image/4.png">
+          </div>
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block" src="/image/5.png">
+          </div>
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block" src="/image/6.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div>
+    <svg height="100%" width="100%" id="svg" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg"
+      class="transition duration-300 ease-in-out delay-150">
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc644"></stop>
+          <stop offset="95%" stop-color="#fff20044"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,80 0,80 C 28.758753649110737,63.16740913548938 57.517507298221474,46.33481827097876 86,57 C 114.48249270177853,67.66518172902124 142.68872445622486,105.82813605157433 176,107 C 209.31127554377514,108.17186394842567 247.7275948768791,72.35263752272391 276,61 C 304.2724051231209,49.64736247727609 322.400896036259,62.76131385753004 356,70 C 389.599103963741,77.23868614246996 438.6688209780851,78.60210704715591 466,76 C 493.3311790219149,73.39789295284409 498.9238200514011,66.8302579538463 527,65 C 555.0761799485989,63.1697420461537 605.6358988163103,66.0768611374589 641,63 C 676.3641011836897,59.9231388625411 696.5325846833579,50.862297496318114 724,53 C 751.4674153166421,55.137702503681886 786.2337624502584,68.47394887726865 820,76 C 853.7662375497416,83.52605112273135 886.532365515609,85.24190699460732 914,80 C 941.467634484391,74.75809300539268 963.6367754873054,62.55842314430211 990,58 C 1016.3632245126946,53.44157685569789 1046.9205325351697,56.52440042818424 1080,68 C 1113.0794674648303,79.47559957181576 1148.6810943720166,99.34397514296094 1180,109 C 1211.3189056279834,118.65602485703906 1238.3550899767647,118.09969899997205 1263,108 C 1287.6449100232353,97.90030100002795 1309.8985457209244,78.25722885715085 1339,72 C 1368.1014542790756,65.74277114284915 1404.0507271395377,72.87138557142458 1440,80 C 1440,80 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150"
+        transform="rotate(-180 720 200)"></path>
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc666"></stop>
+          <stop offset="95%" stop-color="#fff20066"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,160 0,160 C 27.0025750645137,148.25849131210512 54.0051501290274,136.51698262421024 85,141 C 115.9948498709726,145.48301737578976 150.98197454840405,166.19056081526412 183,167 C 215.01802545159595,167.80943918473588 244.06695167735631,148.72077411473333 275,140 C 305.9330483226437,131.27922588526667 338.7502187421708,132.9263427258026 368,137 C 397.2497812578292,141.0736572741974 422.9321733539605,147.5738549820561 454,153 C 485.0678266460395,158.4261450179439 521.5210878419875,162.77823734597305 548,163 C 574.4789121580125,163.22176265402695 590.9834752780893,159.31319563405165 619,162 C 647.0165247219107,164.68680436594835 686.5450110456553,173.9689801178203 717,177 C 747.4549889543447,180.0310198821797 768.8364805392893,176.81088389466709 803,170 C 837.1635194607107,163.18911610533291 884.1090667971877,152.78748430351146 914,146 C 943.8909332028123,139.21251569648854 956.7272522719601,136.0391788912871 982,136 C 1007.2727477280399,135.9608211087129 1044.9819241149721,139.05580013134022 1082,138 C 1119.0180758850279,136.94419986865978 1155.345051268152,131.7376205833521 1183,131 C 1210.654948731848,130.2623794166479 1229.6378708124207,133.99371753525133 1255,134 C 1280.3621291875793,134.00628246474867 1312.1034654821653,130.2875092756425 1344,134 C 1375.8965345178347,137.7124907243575 1407.9482672589174,148.85624536217875 1440,160 C 1440,160 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150"
+        transform="rotate(-180 720 200)"></path>
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc688"></stop>
+          <stop offset="95%" stop-color="#fff20088"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,240 0,240 C 20.195382647596496,249.10846272598582 40.39076529519299,258.21692545197163 76,250 C 111.60923470480701,241.7830745480284 162.63232146682452,216.24076091809937 192,211 C 221.36767853317548,205.75923908190063 229.07994883750888,220.82003087563086 256,238 C 282.9200511624911,255.17996912436914 329.04788318313985,274.4791155793773 367,266 C 404.95211681686015,257.5208844206227 434.7285184299317,221.2635068068599 459,220 C 483.2714815700683,218.7364931931401 502.0380430971336,252.466857193183 533,258 C 563.9619569028664,263.533142806817 607.1193091815339,240.86906442040825 639,228 C 670.8806908184661,215.13093557959175 691.4847201767305,212.05688512518412 717,210 C 742.5152798232695,207.94311487481588 772.941810111544,206.90339507885534 801,210 C 829.058189888456,213.09660492114466 854.7480393770933,220.32953455939438 890,227 C 925.2519606229067,233.67046544060562 970.0660323800832,239.7784666835672 1003,246 C 1035.9339676199168,252.2215333164328 1056.9878311025743,258.55659870633696 1084,256 C 1111.0121688974257,253.44340129366304 1143.9826432096193,241.99513849108493 1179,241 C 1214.0173567903807,240.00486150891507 1251.0815960589484,249.4628473293233 1276,249 C 1300.9184039410516,248.5371526706767 1313.690972554586,238.1534721916219 1339,235 C 1364.309027445414,231.8465278083781 1402.154513722707,235.92326390418907 1440,240 C 1440,240 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150"
+        transform="rotate(-180 720 200)"></path>
+      <defs>
+        <linearGradient id="gradient">
+          <stop offset="5%" stop-color="#ee9dc6ff"></stop>
+          <stop offset="95%" stop-color="#fff200ff"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M 0,400 C 0,400 0,320 0,320 C 29.77166768948863,314.97235595859604 59.54333537897726,309.944711917192 86,318 C 112.45666462102274,326.055288082808 135.5983261735796,347.19350828982783 163,340 C 190.4016738264204,332.80649171017217 222.06335992670438,297.28125492349653 256,301 C 289.9366400732956,304.71874507650347 326.1482341196031,347.68147201618604 360,346 C 393.8517658803969,344.31852798381396 425.3437035948832,297.99285701175955 453,292 C 480.6562964051168,286.00714298824045 504.4769515008637,320.3470999367757 532,329 C 559.5230484991363,337.6529000632243 590.7484904016619,320.61874324113745 627,313 C 663.2515095983381,305.38125675886255 704.5290868924891,307.1779270986745 734,312 C 763.4709131075109,316.8220729013255 781.1351620283823,324.6695483641645 807,319 C 832.8648379716177,313.3304516358355 866.9302649939818,294.14387944466756 896,301 C 925.0697350060182,307.85612055533244 949.143777995691,340.75493385716527 985,342 C 1020.856222004309,343.24506614283473 1068.494623023254,312.8363851266712 1096,297 C 1123.505376976746,281.1636148733288 1130.8777299112928,279.89952563615 1155,294 C 1179.1222700887072,308.10047436385 1219.994457331575,337.56551232872886 1254,342 C 1288.005542668425,346.43448767127114 1315.1444407624072,325.83842504893465 1345,318 C 1374.8555592375928,310.16157495106535 1407.4277796187964,315.0807874755327 1440,320 C 1440,320 1440,400 1440,400 Z"
+        stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150"
+        transform="rotate(-180 720 200)"></path>
+    </svg>
+  </div>
+
+  <footer class="text-gray-600 body-font">
+    <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+      <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+        <span class="ml-3 text-xl">Diabetes Prediction</span>
+      </a>
+      <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2021
+        Diabetes Prediction —
+        <a href="https://www.linkedin.com/in/ihimanshugulati/" class="text-gray-600 ml-1" rel="noopener noreferrer"
+          target="_blank">@ihimanshugulati</a>
+      </p>
+      <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+        <a class="text-gray-500">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5"
+            viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5"
+            viewBox="0 0 24 24">
+            <path
+              d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+            </path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            class="w-5 h-5" viewBox="0 0 24 24">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"
+            class="w-5 h-5" viewBox="0 0 24 24">
+            <path stroke="none"
+              d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+          </svg>
+        </a>
+      </span>
+    </div>
+  </footer>
+</body>
+
+</html>
