@@ -19,4 +19,4 @@ Where 0 stand for Non-Diabetes and 1 stand for Diabetes, so there will be only t
 
 > [Click Here](https://colab.research.google.com/drive/1L3U2B74DWwUcM1RE-gX5DWDfI8K299qc?usp=sharing) to view notebook.
 
-> [Click Here](https://iamhimanshugulati.github.io/diabetes-prediction/)  to view static page.
+> [Click Here](https://thirsty-kilby-78349c.netlify.app/)  to view static page.
